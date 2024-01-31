@@ -58,6 +58,31 @@ def preencherCampos(event) -> None:
     txtIdade.insert(END, str(aluno["idade"]))
     comboCursos.set(aluno["curso"])
 
+def editarAluno() -> None:
+    nome = txtNome.get()
+    idade = int(txtIdade.get())
+    curso = comboCursos.get()
+    novato = opcao.get()
+
+    opcaoSelecionada = messagebox.askyesno("ALTERAÇÃO", "Deseja alterar os dados?")
+    if opcaoSelecionada:
+        aluno=alunos[index]
+        aluno['nome']= nome
+        aluno['idade']= idade
+        aluno['curso']= curso
+        aluno['novato']= novato
+        messagebox.showinfo('Sucesso','Dados alterados com sucesso!')
+    limparCampos()
+    atualizarTabela()
+
+def excluirAluno() -> None:
+    opcaoSelecionada = messagebox.askyesno("EXCLUSÃO","Deseja excluir o aluno?")
+    if opcaoSelecionada:
+        alunos.remove(alunos[index])
+        messagebox.showinfo("Sucesso!", "Dados apagados com sucesso!")
+    limparCampos()
+    atualizarTabela()
+
 janela=Tk()
 janela.title("Alunos - Infinity")
 
@@ -103,10 +128,10 @@ btnAdicionar = Button(janela,text="Adicionar",
                       font="Calibri 12 bold", bg="papayawhip",fg="black",command=adicionarAluno)
 btnAdicionar.grid(row=7,column=0)
 btnEditar = Button(janela, text="Editar",
-                   font="Calibri 12 bold", bg="papayawhip", fg="black",command=None)
+                   font="Calibri 12 bold", bg="papayawhip", fg="black",command=editarAluno)
 btnEditar.grid(row=7, column=1)
 btnExcluir=Button(janela,text="Excluir",
-                  font="Calibri 12 bold", bg="papayawhip", fg="black",command=None)
+                  font="Calibri 12 bold", bg="papayawhip", fg="black",command=excluirAluno)
 btnExcluir.grid(row=7,column=2)
 
 colunas=["Matricula","Nome","Idade","Curso","Novato"]
